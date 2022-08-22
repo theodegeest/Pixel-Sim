@@ -1,11 +1,9 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#define GRID_SIZE 150
-#define PIXEL_SIZE 7
-
 #include <SFML/Graphics.hpp>
 #include "element.h"
+#include "constants.h"
 
 class Simulation {
   public:

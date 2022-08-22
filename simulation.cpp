@@ -1,10 +1,10 @@
 #include "simulation.h"
 #include <SFML/Graphics.hpp>
 
+#include "constants.h"
+
 
 Simulation::Simulation() {
-  printf("Simulation Started\n");
-
   simulation_flip_flop = 1;
 }
 
@@ -74,6 +74,16 @@ void Simulation::update_actions(int x, int y) {
         temp = grid[x - 1][y + 1];
         grid[x - 1][y + 1] = grid[x][y];
         grid[x][y] = temp;
+      } else if (x > 1 && grid[x - 2][y].id == 0)
+      {
+        temp = grid[x - 2][y];
+        grid[x - 2][y] = grid[x][y];
+        grid[x][y] = temp;
+      } else if (x + 2 < GRID_SIZE && grid[x + 2][y].id == 0)
+      {
+        temp = grid[x + 2][y];
+        grid[x + 2][y] = grid[x][y];
+        grid[x][y] = temp;
       } else if (x > 0 && grid[x - 1][y].id == 0)
       {
         temp = grid[x - 1][y];
@@ -84,8 +94,7 @@ void Simulation::update_actions(int x, int y) {
         temp = grid[x + 1][y];
         grid[x + 1][y] = grid[x][y];
         grid[x][y] = temp;
-      }
-
+      } 
 
     }
 
@@ -128,7 +137,20 @@ void Simulation::update_actions(int x, int y) {
         temp = grid[x + 1][y + 1];
         grid[x + 1][y + 1] = grid[x][y];
         grid[x][y] = temp;
-      }  else if (x + 1 < GRID_SIZE && grid[x + 1][y].id == 0)
+      } /* else if (x + 2 < GRID_SIZE && grid[x + 2][y].id == 0)
+      {
+        temp = grid[x + 2][y];
+        grid[x + 2][y] = grid[x][y];
+        grid[x][y] = temp;
+      } else if (x > 1 && grid[x - 2][y].id == 0)
+      {
+        temp = grid[x - 2][y];
+        grid[x - 2][y] = grid[x][y];
+        grid[x][y] = temp;
+      }  */
+
+
+      else if (x + 1 < GRID_SIZE && grid[x + 1][y].id == 0)
       {
         temp = grid[x + 1][y];
         grid[x + 1][y] = grid[x][y];

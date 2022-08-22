@@ -1,16 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include "constants.h"
 #include "element.h"
 #include "simulation.h"
-
-#define GRID_SIZE 150
-#define PIXEL_SIZE 7
-#define UPDATE_INTERVAL 6
-
-
-
-// Element grid[GRID_SIZE][GRID_SIZE];
-//
-// Element temp;
 
 
 int main()
@@ -114,7 +105,7 @@ int main()
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
             simulation.grid[x + i][y + j].id = 1;
-            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Yellow);
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(222, 199, 82));
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -130,7 +121,7 @@ int main()
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
             simulation.grid[x + i][y + j].id = 0;
-            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Black);
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(165, 191, 209));
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -153,7 +144,25 @@ int main()
         }
       }
 
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+      sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+      int x = mouse_pos.x / PIXEL_SIZE;
+      int y = mouse_pos.y / PIXEL_SIZE;
+
+      for (int i = mouse_radius * -1; i <= mouse_radius; i++) {
+        for (int j = mouse_radius * -1; j <= mouse_radius; j++) {
+          if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
+          {
+            simulation.grid[x + i][y + j].id = 3;
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(140, 101, 65));
+            // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
+          }
+        }
+      }
+
     }
+
 
     if (update_time > UPDATE_INTERVAL)
     {
