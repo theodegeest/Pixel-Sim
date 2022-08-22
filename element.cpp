@@ -2,7 +2,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
 
-#define PIXEL_SIZE 10
+#define PIXEL_SIZE 7
 
 
 

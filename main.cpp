@@ -1,15 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include "element.h"
+#include "simulation.h"
 
-#define GRID_SIZE 100
-#define PIXEL_SIZE 10
-#define UPDATE_INTERVAL 10
+#define GRID_SIZE 150
+#define PIXEL_SIZE 7
+#define UPDATE_INTERVAL 6
 
 
 
-Element grid[GRID_SIZE][GRID_SIZE];
+// Element grid[GRID_SIZE][GRID_SIZE];
+//
+// Element temp;
 
-Element temp;
 
 int main()
 {
@@ -19,6 +21,7 @@ int main()
   // sf::CircleShape shape(100.f);
   // shape.setFillColor(sf::Color::Green);
 
+  Simulation simulation;
   sf::Clock clock; // Starts clock
 
   int update_time = 0;
@@ -34,8 +37,9 @@ int main()
   int fps_array[50];
   int fps_ctr = 0;
 
-  int mouse_radius = 1;
-  int remove_radius = 3;
+  int mouse_radius = 2;
+  int remove_radius = 4;
+
 
   // sf::CircleShape mouse(20.f);
   // mouse.setFillColor(sf::Color::Green);
@@ -109,8 +113,8 @@ int main()
         for (int j = mouse_radius * -1; j <= mouse_radius; j++) {
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
-            grid[x + i][y + j].id = 1;
-            grid[x + i][y + j].pixel.setFillColor(sf::Color::Yellow);
+            simulation.grid[x + i][y + j].id = 1;
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Yellow);
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -125,8 +129,8 @@ int main()
         for (int j = remove_radius * -1; j <= remove_radius; j++) {
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
-            grid[x + i][y + j].id = 0;
-            grid[x + i][y + j].pixel.setFillColor(sf::Color::Black);
+            simulation.grid[x + i][y + j].id = 0;
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Black);
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -142,80 +146,29 @@ int main()
         for (int j = mouse_radius * -1; j <= mouse_radius; j++) {
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
-            grid[x + i][y + j].id = 2;
-            grid[x + i][y + j].pixel.setFillColor(sf::Color::Cyan);
+            simulation.grid[x + i][y + j].id = 2;
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Cyan);
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
       }
- 
+
     }
 
     if (update_time > UPDATE_INTERVAL)
     {
       update_time = 0;
+      simulation.update();
 
-      for (int y = GRID_SIZE - 1; y >= 0; y--) {
-        for (int x = GRID_SIZE - 1; x >= 0; x--) {
-          int id = grid[x][y].id;
-          if (grid[x][y].id == 1 && y + 1 < GRID_SIZE)
-          {
-            if (grid[x][y + 1].id == 0 || grid[x][y + 1].id == 2)
-            {
-              temp = grid[x][y + 1];
-              grid[x][y + 1] = grid[x][y];
-              grid[x][y] = temp;
-            } else if (x > 0 && grid[x - 1][y + 1].id == 0 || x > 0 && grid[x - 1][y + 1].id == 2)
-            {
-              temp = grid[x - 1][y + 1];
-              grid[x - 1][y + 1] = grid[x][y];
-              grid[x][y] = temp;
-            } else if (x + 1 < GRID_SIZE && grid[x + 1][y + 1].id == 0 || x + 1 < GRID_SIZE && grid[x + 1][y + 1].id == 2)
-            {
-              temp = grid[x + 1][y + 1];
-              grid[x + 1][y + 1] = grid[x][y];
-              grid[x][y] = temp;
-            }
-          } else if (grid[x][y].id == 2)
-          {
-
-            if (y + 1 < GRID_SIZE && grid[x][y + 1].id == 0)
-            {
-              temp = grid[x][y + 1];
-              grid[x][y + 1] = grid[x][y];
-              grid[x][y] = temp;
-            } else if (x > 0 && grid[x - 1][y].id == 0)
-            {
-              temp = grid[x - 1][y];
-              grid[x - 1][y] = grid[x][y];
-              grid[x][y] = temp;
-            } else if (x + 1 < GRID_SIZE && grid[x + 1][y].id == 0)
-            {
-              temp = grid[x + 1][y];
-              grid[x + 1][y] = grid[x][y];
-              grid[x][y] = temp;
-            }
-
-
-          }
-        }
-      }
     }
 
 
-    // rectangle.setPosition(box1.x, box1.y);
-    // sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
-    // mouse.setPosition(mouse_pos.x - 17, mouse_pos.y - 17);
-
     window.clear(sf::Color::Black);
-    // window.draw(shape);
-    // window.draw(rectangle);
-    // window.draw(mouse);
 
     for (int x = 0; x < GRID_SIZE; x++) {
       for (int y = 0; y < GRID_SIZE; y++) {
-        grid[x][y].pixel.setPosition(x * PIXEL_SIZE, y * PIXEL_SIZE);
-        window.draw(grid[x][y].pixel);
+        simulation.grid[x][y].pixel.setPosition(x * PIXEL_SIZE, y * PIXEL_SIZE);
+        window.draw(simulation.grid[x][y].pixel);
       }
     }
 
