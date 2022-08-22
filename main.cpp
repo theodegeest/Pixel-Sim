@@ -105,7 +105,8 @@ int main()
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
             simulation.grid[x + i][y + j].id = 1;
-            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(222, 199, 82));
+            int random = (rand() % 30) - 15; 
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(222, 199 + random, 82));
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -138,7 +139,8 @@ int main()
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
             simulation.grid[x + i][y + j].id = 2;
-            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color::Cyan);
+            int random = (rand() % 4) - 2; 
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(57, 168 + random, 196));
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
@@ -155,13 +157,24 @@ int main()
           if (x + i >= 0 && y + j >= 0 && x + i < GRID_SIZE && y + j < GRID_SIZE)
           {
             simulation.grid[x + i][y + j].id = 3;
-            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(140, 101, 65));
+            int random = (rand() % 30) - 15;
+            simulation.grid[x + i][y + j].pixel.setFillColor(sf::Color(140 + random, 101, 65));
             // grid[x][y].pixel.setOutlineColor(sf::Color::Green);
           }
         }
       }
 
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+      for (int x = 0; x < GRID_SIZE; x++) {
+        for (int y = 0; y < GRID_SIZE; y++) {
+          simulation.grid[x][y].id = 0;
+          simulation.grid[x][y].pixel.setFillColor(sf::Color(165, 191, 209));
+        }
+      }
+
+
     }
+
 
 
     if (update_time > UPDATE_INTERVAL)

@@ -7,10 +7,9 @@ class Element {
   public:
     int id;
     sf::Vector2i vel;
-    sf::Color color;
     sf::RectangleShape pixel;
 
-    Element(int id, int vx, int vy, sf::Color c);
+    Element(int id, int vx, int vy);
     Element();
 };
 

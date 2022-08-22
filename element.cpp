@@ -4,10 +4,9 @@
 
 #include "constants.h"
 
-Element::Element(int a, int vx, int vy, sf::Color c) {
+Element::Element(int a, int vx, int vy) {
   id = a;
   vel = sf::Vector2i(vx, vy);
-  color = c;
 }
 
 Element::Element() {
