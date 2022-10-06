@@ -3,7 +3,6 @@
 #include "element.h"
 #include "simulation.h"
 
-
 int main()
 {
   sf::RenderWindow window(sf::VideoMode(GRID_SIZE * PIXEL_SIZE, GRID_SIZE * PIXEL_SIZE), "Pixel-Sim");
