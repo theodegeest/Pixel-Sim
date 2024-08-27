@@ -1,20 +1,23 @@
-targets := game
-objs := main.o element.o constants.o simulation.o 
+target := bin/main
+SRCS=$(wildcard $(SRC)/*.cpp)
+OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
+
 CC := g++
-CFLAGS := 
+CFLAGS := -Wall 
 LFLAGS := -lsfml-graphics -lsfml-window -lsfml-system
+BIN := bin
+OBJ := obj
+SRC := src
 
-all: $(targets)
+$(shell mkdir -p obj bin saves)
 
-deps := $(patsubst %.o,%.d,$(objs)) 
--include $(deps)
-DEPFLAGS = -MMD -MF $(@:.o=.d)
+all: $(target) $(BIN) $(OBJ)
 
-game: $(objs)
+$(target): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< $(DEPFLAGS)
+$(OBJ)/%.o: $(SRC)/%.cpp
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(targets) $(objs) $(deps)
+	rm -f $(BIN)/* $(OBJ)/*

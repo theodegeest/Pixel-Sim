@@ -16,7 +16,7 @@ int main()
 
   int update_time = 0;
   sf::Font font;
-  if (!font.loadFromFile("JetBrains Mono Regular Nerd Font Complete.ttf"))
+  if (!font.loadFromFile("src/JetBrains Mono Regular Nerd Font Complete.ttf"))
   {
     printf("font error\n");
   }
@@ -29,7 +29,6 @@ int main()
 
   int mouse_radius = 2;
   int remove_radius = 4;
-
 
   // sf::CircleShape mouse(20.f);
   // mouse.setFillColor(sf::Color::Green);
